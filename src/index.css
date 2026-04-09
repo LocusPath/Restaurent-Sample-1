@@ -4,6 +4,8 @@
   --bg-dark: #00120f; /* Deep obsidian green */
   --bg-panel: rgba(0, 33, 26, 0.6);
   --bg-accent: #e3a93c; /* Royal Saffron Gold */
+  --bg-accent-warm: #c76a42; /* Warm Copper */
+  --bg-accent-teal: #3a9e8f; /* Soft Teal */
   --bg-menu: #001a15; /* Deep charcoal for menus */
   --text-primary: #fdfbf7; /* Off-white for stark contrast */
   --text-secondary: #c9dcd6; /* Warm minty sand */

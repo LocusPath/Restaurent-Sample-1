@@ -5,17 +5,17 @@ import './App.css';
 
 /* ── calm animation variants ── */
 const calmFade = {
-  initial: { opacity: 0, y: 30 },
+  initial: { opacity: 0, y: 25 },
   animate: { opacity: 1, y: 0 },
-  exit:    { opacity: 0, y: -20 }
+  exit:    { opacity: 0, y: -15 }
 };
-const calmTransition = { duration: 1.0, ease: [0.25, 0.46, 0.45, 0.94] };
+const calmTransition = { duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] };
 
 const sectionReveal = {
-  hidden: { opacity: 0, y: 40 },
+  hidden: { opacity: 0, y: 35 },
   visible: { opacity: 1, y: 0 }
 };
-const sectionTransition = { duration: 1.2, ease: [0.25, 0.46, 0.45, 0.94] };
+const sectionTransition = { duration: 0.9, ease: [0.25, 0.46, 0.45, 0.94] };
 
 const menuItems = [
 // pizzas
@@ -183,7 +183,7 @@ function Home({ setPage }) {
             className="hero-text-left"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.4, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.2 }}
+            transition={{ duration: 1.0, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.1 }}
           >
             <h3 className="sub-heading" style={{ textAlign: 'left', margin: '0 0 1.5rem 0' }}>A TASTE OF MILAN & DELHI</h3>
             <h1 className="hero-title" style={{ textAlign: 'left' }}>Real Italian pasta<br />with an Indian heart</h1>
@@ -201,7 +201,7 @@ function Home({ setPage }) {
             className="hero-image-wrapper"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 2, ease: 'easeOut', delay: 0.5 }}
+            transition={{ duration: 1.4, ease: 'easeOut', delay: 0.3 }}
           >
              <img 
                 src="/hero_dish.png" 
@@ -216,9 +216,9 @@ function Home({ setPage }) {
       <section className="artistic-details">
         <div className="details-grid">
           {[
-            { title: 'Our Heritage', text: 'Born from the winding streets of Napoli, our recipes have been passed down through five generations. We honor the simplicity and passion of traditional Italian gastronomy.' },
-            { title: 'Wood-Fired', text: 'Our custom brick oven, imported directly from Italy, burns oak and olive wood to give our dough its signature blistered crust and smoky aroma.' },
-            { title: 'Imported Ingredients', text: 'San Marzano tomatoes from the volcanic soils of Mount Vesuvius, D.O.P. buffalo mozzarella from Campania, and extra virgin olive oil pressed in Apulia.' }
+            { title: 'Our Heritage', text: 'Born from the winding streets of Napoli, our recipes have been passed down through five generations. We honor the simplicity and passion of traditional Italian gastronomy.', accent: 'var(--bg-accent-teal)' },
+            { title: 'Wood-Fired', text: 'Our custom brick oven, imported directly from Italy, burns oak and olive wood to give our dough its signature blistered crust and smoky aroma.', accent: 'var(--bg-accent)' },
+            { title: 'Imported Ingredients', text: 'San Marzano tomatoes from the volcanic soils of Mount Vesuvius, D.O.P. buffalo mozzarella from Campania, and extra virgin olive oil pressed in Apulia.', accent: 'var(--bg-accent-warm)' }
           ].map((card, i) => (
             <motion.div 
               key={i} 
@@ -227,14 +227,39 @@ function Home({ setPage }) {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-80px" }}
-              transition={{ ...sectionTransition, delay: i * 0.2 }}
+              transition={{ ...sectionTransition, delay: i * 0.15 }}
             >
               <h2 className="detail-title">{card.title}</h2>
-              <div className="detail-line"></div>
+              <div className="detail-line" style={{ backgroundColor: card.accent }}></div>
               <p className="detail-text">{card.text}</p>
             </motion.div>
           ))}
         </div>
+      </section>
+
+      {/* Gallery Strip */}
+      <section className="gallery-strip">
+        <motion.div
+          className="gallery-grid"
+          variants={sectionReveal}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          transition={sectionTransition}
+        >
+          <div className="gallery-item">
+            <img src="/hero_dish.png" alt="Signature Saffron Pasta" className="gallery-img" />
+            <div className="gallery-label">Signature Saffron Pasta</div>
+          </div>
+          <div className="gallery-item">
+            <img src="/pasta_dish.png" alt="Handmade Pappardelle" className="gallery-img" />
+            <div className="gallery-label">Handmade Pappardelle</div>
+          </div>
+          <div className="gallery-item">
+            <img src="/chef_bg.png" alt="Our Kitchen" className="gallery-img" />
+            <div className="gallery-label">Our Kitchen</div>
+          </div>
+        </motion.div>
       </section>
 
       {/* Chef Story — with background image */}
