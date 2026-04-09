@@ -1,14 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,700&family=Great+Vibes&family=Inter:wght@300;400;500;600&display=swap');
 
 :root {
-  --bg-dark: #0f0a0c; /* Deep obsidian with a hint of warm wine */
-  --bg-panel: rgba(43, 16, 19, 0.6);
-  --bg-accent: #d4af37; /* Metallic Gold */
-  --bg-menu: #150f11; /* Deep charcoal for menus */
+  --bg-dark: #00120f; /* Deep obsidian green */
+  --bg-panel: rgba(0, 33, 26, 0.6);
+  --bg-accent: #e3a93c; /* Royal Saffron Gold */
+  --bg-menu: #001a15; /* Deep charcoal for menus */
   --text-primary: #fdfbf7; /* Off-white for stark contrast */
-  --text-secondary: #d1bfae; /* Warm sandy beige */
+  --text-secondary: #c9dcd6; /* Warm minty sand */
   --text-dark: #fbfbfb; /* Light text for dark menu */
-  --text-dark-secondary: #c9b49f; /* Elegant secondary text */
+  --text-dark-secondary: #8baaa1; /* Elegant secondary text */
   
   --font-serif: 'Playfair Display', serif;
   --font-sans: 'Inter', sans-serif;

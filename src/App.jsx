@@ -4,12 +4,12 @@ import { Calendar, Users, Clock, MessageSquare, CheckCircle } from 'lucide-react
 import './App.css';
 
 export const pageVariants = {
-  initial: { opacity: 0, rotateX: 90, transformPerspective: 1200 },
-  in: { opacity: 1, rotateX: 0, transformPerspective: 1200 },
-  out: { opacity: 0, rotateX: -90, transformPerspective: 1200 }
+  initial: { opacity: 0, rotateX: 45, transformPerspective: 1200, scale: 0.95 },
+  in: { opacity: 1, rotateX: 0, transformPerspective: 1200, scale: 1 },
+  out: { opacity: 0, rotateX: -30, transformPerspective: 1200, scale: 0.97 }
 };
 
-export const pageTransition = { duration: 0.8, ease: "easeOut" };
+export const pageTransition = { duration: 1.4, ease: [0.22, 1, 0.36, 1] };
 
 const menuItems = [
 // pizzas
@@ -65,15 +65,15 @@ export default function App() {
     return (
       <div className="loader-container">
         <motion.div 
-          animate={{ rotateY: 360, rotateX: 180 }}
-          transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+          animate={{ rotateY: 360 }}
+          transition={{ duration: 3.5, repeat: Infinity, ease: "linear" }}
         >
           <span style={{ fontSize: '5rem', fontFamily: 'var(--font-script)', color: 'var(--bg-accent)'}}>BB</span>
         </motion.div>
         <motion.h2
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 1.5, repeat: Infinity, repeatType: 'reverse' }}
+          transition={{ duration: 2, repeat: Infinity, repeatType: 'reverse', ease: 'easeInOut' }}
           style={{ marginTop: '2.5rem', fontFamily: 'var(--font-sans)', letterSpacing: '8px', fontSize: '1rem', color: 'var(--text-secondary)' }}
         >
           PREPARING EXPERIENCE
@@ -89,7 +89,7 @@ export default function App() {
         className="navbar"
         initial={{ y: -50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 1 }}
+        transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1] }}
       >
         <div className="brand-header" onClick={() => setCurrentPage('home')}>
           <h1 className="brand-title">Basilico Blu</h1>
@@ -115,7 +115,7 @@ export default function App() {
         onClick={() => setCurrentPage('booking')}
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1, duration: 0.8 }}
+        transition={{ delay: 1.5, duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
       >
         <Calendar size={20} />
         <span>Reserve</span>
@@ -154,9 +154,9 @@ function Home({ setPage }) {
                 src="/hero_dish.png" 
                 alt="Signature Dish" 
                 className="hero-dish"
-                initial={{ opacity: 0, scale: 0.8, rotateZ: -5 }}
+                initial={{ opacity: 0, scale: 0.85, rotateZ: -3 }}
                 animate={{ opacity: 1, scale: 1, rotateZ: 0 }}
-                transition={{ duration: 1.2, ease: "easeOut" }}
+                transition={{ duration: 1.8, ease: [0.22, 1, 0.36, 1], delay: 0.3 }}
              />
           </div>
         </div>
@@ -190,12 +190,12 @@ function Home({ setPage }) {
       </section>
 
       {/* Chef Story */}
-      <section className="chef-story" style={{ padding: '6rem 10%', background: 'rgba(0,0,0,0.4)', textAlign: 'center' }}>
+      <section className="chef-story" style={{ padding: '8rem 10%', background: 'linear-gradient(rgba(0,18,15,0.7), rgba(0,18,15,0.9)), url(/chef_bg.png)', backgroundSize: 'cover', backgroundAttachment: 'fixed', backgroundPosition: 'center', textAlign: 'center' }}>
         <motion.div 
           initial={{ opacity: 0, rotateY: 30 }}
           whileInView={{ opacity: 1, rotateY: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 1 }}
+          transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1] }}
           style={{ transformPerspective: 1000 }}
         >
            <h2 className="detail-title" style={{ fontSize: '3rem', color: 'var(--bg-accent)' }}>La Famiglia</h2>
@@ -251,10 +251,10 @@ function Menu() {
                   className="menu-item-row"
                   initial={{ opacity: 0, rotateX: 60 }}
                   whileInView={{ opacity: 1, rotateX: 0 }}
-                  whileHover={{ scale: 1.05, rotateX: 10, rotateY: 5, boxShadow: "0px 15px 35px rgba(0,0,0,0.6)" }}
-                  style={{ transformPerspective: 1000, cursor: "pointer", background: "rgba(15,10,12,0.8)", padding: "1.5rem", borderRadius: "10px", border: "1px solid rgba(255,255,255,0.05)" }}
+                  whileHover={{ scale: 1.05, rotateX: 10, rotateY: 5, boxShadow: "0px 15px 35px rgba(0,0,0,0.6)", transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } }}
+                  style={{ transformPerspective: 1000, cursor: "pointer", background: "rgba(0,26,21,0.8)", padding: "1.5rem", borderRadius: "10px", border: "1px solid rgba(255,255,255,0.05)" }}
                   viewport={{ once: true, margin: "-50px" }}
-                  transition={{ duration: 0.6, delay: i * 0.1 }}
+                  transition={{ duration: 1.2, delay: i * 0.15, ease: [0.22, 1, 0.36, 1] }}
                 >
                   <div className="menu-item-info">
                     <h3 className="item-name">{item.name}</h3>
