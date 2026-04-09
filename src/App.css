@@ -595,59 +595,12 @@
   color: var(--text-secondary);
 }
 
-/* ── TESTIMONIALS ── */
-.testimonials-section {
-  padding: 7rem 10%;
-}
 
-.section-heading {
-  font-family: var(--font-serif);
-  font-size: 2.5rem;
-  text-align: center;
-  margin-bottom: 4rem;
-  color: var(--text-primary);
-}
-
-.testimonials-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2.5rem;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.testimonial-card {
-  padding: 2.5rem 2rem;
-  background: rgba(0, 33, 26, 0.4);
-  border-radius: 12px;
-  border: 1px solid rgba(255,255,255,0.04);
-  transition: border-color 0.6s ease;
-}
-
-.testimonial-card:hover {
-  border-color: rgba(227, 169, 60, 0.15);
-}
-
-.testimonial-quote {
-  font-style: italic;
-  font-size: 1.1rem;
-  color: var(--text-primary);
-  margin-bottom: 1.5rem;
-  line-height: 1.7;
-}
-
-.testimonial-source {
-  color: var(--bg-accent);
-  font-family: var(--font-sans);
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  font-size: 0.8rem;
-}
 
 /* ── CTA SECTION ── */
 .cta-section {
   padding: 8rem 10%;
-  background: linear-gradient(rgba(0,18,15,0.6), rgba(0,18,15,0.85)), url('/hero_dish.png');
+  background: linear-gradient(rgba(0,18,15,0.6), rgba(0,18,15,0.85)), url('/interior.png');
   background-size: cover;
   background-position: center;
   background-attachment: fixed;

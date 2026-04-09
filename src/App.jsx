@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Calendar, Users, Clock, MessageSquare, CheckCircle, MapPin, Phone, Mail } from 'lucide-react';
+import { Calendar, Users, Clock, MessageSquare, CheckCircle, MapPin, Phone, Mail, Pizza, Utensils, Flame, Leaf, Coffee } from 'lucide-react';
 import './App.css';
 
 /* ── calm animation variants ── */
@@ -103,7 +103,7 @@ export default function App() {
         transition={{ duration: 1.5, ease: 'easeOut' }}
       >
         <div className="brand-header" onClick={() => navigateTo('home')}>
-          <h1 className="brand-title">Basilico Blu</h1>
+          <img src="/logo.svg" alt="Basilico Blu" style={{ height: '48px', filter: 'drop-shadow(0px 4px 6px rgba(0,0,0,0.4))' }} />
         </div>
         
         <div className="nav-links">
@@ -132,8 +132,9 @@ export default function App() {
           <div className="footer-col">
             <h4 style={{ color: 'var(--bg-accent)', fontFamily: 'var(--font-sans)', letterSpacing: '2px', textTransform: 'uppercase', marginBottom: '1rem', fontSize: '0.85rem' }}>Visit Us</h4>
             <p style={{ color: 'var(--text-secondary)', lineHeight: 2, fontSize: '0.9rem' }}>
-              <MapPin size={14} style={{ marginRight: '8px', verticalAlign: 'middle' }} />42 Connaught Place, New Delhi 110001<br/>
-              <Phone size={14} style={{ marginRight: '8px', verticalAlign: 'middle' }} />+91 11 4567 8900<br/>
+              <MapPin size={14} style={{ marginRight: '8px', verticalAlign: 'middle' }} />777 Starlight Avenue, Culinary District<br/>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Metroburg 10001<br/>
+              <Phone size={14} style={{ marginRight: '8px', verticalAlign: 'middle' }} />+91 9318368267, +91 8287768083<br/>
               <Mail size={14} style={{ marginRight: '8px', verticalAlign: 'middle' }} />ciao@basilicoblu.in
             </p>
           </div>
@@ -248,16 +249,28 @@ function Home({ setPage }) {
           transition={sectionTransition}
         >
           <div className="gallery-item">
+            <img src="/pizza.png" alt="Artisan Wood-Fired Pizza" className="gallery-img" />
+            <div className="gallery-label">Artisan Wood-Fired</div>
+          </div>
+          <div className="gallery-item">
+            <img src="/pasta.png" alt="Handmade Pappardelle" className="gallery-img" />
+            <div className="gallery-label">Handmade Pasta</div>
+          </div>
+          <div className="gallery-item">
             <img src="/hero_dish.png" alt="Signature Saffron Pasta" className="gallery-img" />
-            <div className="gallery-label">Signature Saffron Pasta</div>
+            <div className="gallery-label">Signature Dishes</div>
           </div>
           <div className="gallery-item">
-            <img src="/pasta_dish.png" alt="Handmade Pappardelle" className="gallery-img" />
-            <div className="gallery-label">Handmade Pappardelle</div>
+            <img src="/pasta_dish.png" alt="Truffle Gnocchi" className="gallery-img" />
+            <div className="gallery-label">Rich Flavors</div>
           </div>
           <div className="gallery-item">
-            <img src="/chef_bg.png" alt="Our Kitchen" className="gallery-img" />
-            <div className="gallery-label">Our Kitchen</div>
+            <img src="/hot_dish.png" alt="Signature Curries" className="gallery-img" />
+            <div className="gallery-label">Indo-Italian Fusion</div>
+          </div>
+          <div className="gallery-item">
+            <img src="/interior.png" alt="Our Beautiful Setting" className="gallery-img" />
+            <div className="gallery-label">Beautiful Setting</div>
           </div>
         </motion.div>
       </section>
@@ -305,37 +318,7 @@ function Home({ setPage }) {
         </motion.div>
       </section>
 
-      {/* Testimonials */}
-      <section className="testimonials-section">
-        <motion.h2
-          className="section-heading"
-          variants={sectionReveal}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          transition={sectionTransition}
-        >What The Critics Say</motion.h2>
-        <div className="testimonials-grid">
-          {[
-            { quote: '"A revelatory dining experience. The Truffle Malai Broccoli is nothing short of spectacular."', source: '— The Culinary Times' },
-            { quote: '"Basilico Blu executes Indo-Italian fusion with an elegance previously unseen in the fine dining space."', source: '— Vogue Gastronomy' },
-            { quote: '"The Palak Paneer Lasagna alone is worth the pilgrimage to Connaught Place."', source: '— India Food Quarterly' }
-          ].map((t, i) => (
-            <motion.div 
-              key={i} 
-              className="testimonial-card"
-              variants={sectionReveal}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ ...sectionTransition, delay: i * 0.15 }}
-            >
-              <p className="testimonial-quote">{t.quote}</p>
-              <h4 className="testimonial-source">{t.source}</h4>
-            </motion.div>
-          ))}
-        </div>
-      </section>
+
 
       {/* CTA — Reservation Banner */}
       <section className="cta-section">
@@ -366,6 +349,14 @@ function Home({ setPage }) {
 function Menu() {
   const categories = [...new Set(menuItems.map(item => item.category))];
 
+  const categoryIcons = {
+    'Wood Fired Pizza': <Pizza size={26} style={{ filter: 'drop-shadow(0px 4px 6px rgba(227,169,60,0.5))', marginRight: '10px', verticalAlign: 'middle' }} />,
+    'Handmade Pasta': <Utensils size={26} style={{ filter: 'drop-shadow(0px 4px 6px rgba(227,169,60,0.5))', marginRight: '10px', verticalAlign: 'middle' }} />,
+    'Secondi (Mains)': <Flame size={26} style={{ filter: 'drop-shadow(0px 4px 6px rgba(227,169,60,0.5))', marginRight: '10px', verticalAlign: 'middle' }} />,
+    'Antipasti e Pane': <Leaf size={26} style={{ filter: 'drop-shadow(0px 4px 6px rgba(227,169,60,0.5))', marginRight: '10px', verticalAlign: 'middle' }} />,
+    'Dolci': <Coffee size={26} style={{ filter: 'drop-shadow(0px 4px 6px rgba(227,169,60,0.5))', marginRight: '10px', verticalAlign: 'middle' }} />
+  };
+
   return (
     <motion.div 
       className="page menu-page-wrapper"
@@ -387,7 +378,9 @@ function Menu() {
               whileInView="visible"
               viewport={{ once: true }}
               transition={sectionTransition}
-            >{cat}</motion.h2>
+            >
+              {categoryIcons[cat]}{cat}
+            </motion.h2>
             <div className="menu-list">
               {menuItems.filter(item => item.category === cat).map((item, i) => (
                 <motion.div 
@@ -534,7 +527,7 @@ function Booking() {
           
           <div className="contact-box mt-4">
              <h4 className="detail-title" style={{ fontSize: '1rem', marginBottom: '0.5rem' }}>Need assistance?</h4>
-             <p style={{ color: 'var(--text-secondary)' }}>Call us at: +91 11 4567 8900<br/>Email: ciao@basilicoblu.in</p>
+             <p style={{ color: 'var(--text-secondary)' }}>Call us at: +91 9318368267, +91 8287768083<br/>Email: ciao@basilicoblu.in</p>
           </div>
         </motion.div>
       </div>
