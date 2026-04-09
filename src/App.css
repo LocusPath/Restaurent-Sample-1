@@ -3,11 +3,7 @@
   min-height: 100vh;
   position: relative;
   background-color: var(--bg-dark);
-  background-image: linear-gradient(rgba(15, 10, 12, 0.96), rgba(15, 10, 12, 0.99)), url('/pizza.png');
-  background-attachment: fixed;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  background: radial-gradient(circle at top right, rgba(63, 24, 28, 0.4), #0f0a0c 60%);
 }
 
 .loader-container {
@@ -107,19 +103,51 @@
 .hero {
   flex: 1;
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  text-align: center;
   position: relative;
+  width: 100%;
 }
 
-.hero-text {
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+  max-width: 1300px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 2rem 5%;
+}
+
+.hero-text-left {
   position: relative;
   z-index: 10;
-  margin-top: 5vh;
   display: flex;
   flex-direction: column;
+}
+
+.hero-image-wrapper {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
   align-items: center;
+  padding: 2rem;
+}
+
+.hero-dish {
+  width: 100%;
+  max-width: 550px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.8), 0 0 100px rgba(212,175,55,0.15);
+  transition: transform 0.5s ease;
+  aspect-ratio: 1/1;
+}
+
+.hero-dish:hover {
+  transform: scale(1.03) rotate(2deg);
 }
 
 .hero-title {
@@ -432,6 +460,7 @@
   .details-grid { grid-template-columns: 1fr; gap: 3rem; }
   .booking-container { grid-template-columns: 1fr; }
   .menu-list { grid-template-columns: 1fr; }
+  .hero-grid { grid-template-columns: 1fr; text-align: center; gap: 2rem; margin-top: 2rem; }
 }
 
 @media (max-width: 768px) {
@@ -439,6 +468,7 @@
   .nav-links { display: none; }
   .form-grid { grid-template-columns: 1fr; gap: 1.5rem; }
   .booking-form { padding: 2rem; }
+  .hero-text-left, .hero-title, .sub-heading, .hero-description { text-align: center !important; margin-left: auto !important; margin-right: auto !important; }
 }
 
 /* FLOATING WIDGET */
