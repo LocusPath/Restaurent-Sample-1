@@ -4,27 +4,27 @@ import { Calendar, Users, Clock, MessageSquare, CheckCircle } from 'lucide-react
 import './App.css';
 
 const menuItems = [
-  { id: 1, name: 'Margherita Verace', desc: 'San Marzano tomatoes, buffalo mozzarella, fresh basil, extra virgin olive oil.', price: '$18', category: 'Wood Fired Pizza' },
-  { id: 2, name: 'Diavola Napoletana', desc: 'Tomato sauce, fior di latte, spicy Calabrian salami, chili oil, roasted peppers.', price: '$22', category: 'Wood Fired Pizza' },
-  { id: 3, name: 'Quattro Formaggi Bianca', desc: 'Mozzarella, gorgonzola dolce, parmigiano reggiano, fontina, truffle honey.', price: '$24', category: 'Wood Fired Pizza' },
-  { id: 4, name: 'Prosciutto e Rucola', desc: 'Cherry tomatoes, mozzarella, aged prosciutto di Parma, wild arugula, shaved parmesan.', price: '$26', category: 'Wood Fired Pizza' },
+  { id: 1, name: 'Makhani Margherita (Verace)', desc: 'San Marzano tomatoes, buffalo mozzarella, fresh basil, extra virgin olive oil.', price: '$18', category: 'Wood Fired Pizza' },
+  { id: 2, name: 'Teekha Salami Diavola', desc: 'Tomato sauce, fior di latte, spicy Calabrian salami, chili oil, roasted peppers.', price: '$22', category: 'Wood Fired Pizza' },
+  { id: 3, name: 'Char Magaz Formaggi', desc: 'Mozzarella, gorgonzola dolce, parmigiano reggiano, fontina, truffle honey.', price: '$24', category: 'Wood Fired Pizza' },
+  { id: 4, name: 'Nawabi Prosciutto', desc: 'Cherry tomatoes, mozzarella, aged prosciutto di Parma, wild arugula, shaved parmesan.', price: '$26', category: 'Wood Fired Pizza' },
   
-  { id: 5, name: 'Spaghetti Carbonara', desc: 'Crispy guanciale, egg yolk, pecorino romano, cracked black pepper. No cream.', price: '$24', category: 'Handmade Pasta' },
-  { id: 6, name: 'Pappardelle al Cinghiale', desc: 'Wide ribbon pasta, slow-braised wild boar ragù, juniper berries, pecorino.', price: '$28', category: 'Handmade Pasta' },
-  { id: 7, name: 'Linguine alle Vongole', desc: 'Fresh Manila clams, white wine, garlic, parsley, Calabrian chili flakes.', price: '$29', category: 'Handmade Pasta' },
-  { id: 8, name: 'Gnocchi al Tartufo', desc: 'Potato dumplings, black truffle cream, wild mushrooms, parmesan crisp.', price: '$27', category: 'Handmade Pasta' },
+  { id: 5, name: 'Reshmi Spaghetti Carbonara', desc: 'Crispy guanciale, egg yolk, pecorino romano, cracked black pepper. No cream.', price: '$24', category: 'Handmade Pasta' },
+  { id: 6, name: 'Junglee Ragu Pappardelle', desc: 'Wide ribbon pasta, slow-braised wild boar ragù, juniper berries, pecorino.', price: '$28', category: 'Handmade Pasta' },
+  { id: 7, name: 'Samundari Linguine', desc: 'Fresh Manila clams, white wine, garlic, parsley, Calabrian chili flakes.', price: '$29', category: 'Handmade Pasta' },
+  { id: 8, name: 'Kala Truffle Gnocchi', desc: 'Potato dumplings, black truffle cream, wild mushrooms, parmesan crisp.', price: '$27', category: 'Handmade Pasta' },
 
-  { id: 9, name: 'Bistecca alla Fiorentina', desc: '32oz dry-aged Porterhouse, grilled lemon, rosemary roasted potatoes. Designed for two.', price: '$120', category: 'Secondi (Mains)' },
-  { id: 10, name: 'Branzino al Forno', desc: 'Whole roasted Mediterranean sea bass, cherry tomatoes, capers, white wine sauce.', price: '$42', category: 'Secondi (Mains)' },
-  { id: 11, name: 'Osso Buco Milanese', desc: 'Braised veal shank, saffron risotto, gremolata, bone marrow.', price: '$48', category: 'Secondi (Mains)' },
+  { id: 9, name: 'Shahi Bistecca', desc: '32oz dry-aged Porterhouse, grilled lemon, rosemary roasted potatoes. Designed for two.', price: '$120', category: 'Secondi (Mains)' },
+  { id: 10, name: 'Tandoori Branzino', desc: 'Whole roasted Mediterranean sea bass, cherry tomatoes, capers, white wine sauce.', price: '$42', category: 'Secondi (Mains)' },
+  { id: 11, name: 'Nalli Nihari Osso Buco', desc: 'Braised veal shank, saffron risotto, gremolata, bone marrow.', price: '$48', category: 'Secondi (Mains)' },
 
-  { id: 12, name: 'Burrata con Pomodorini', desc: 'Fresh burrata cheese, blistered cherry tomatoes, aged balsamic, basil oil.', price: '$18', category: 'Antipasti e Insalate' },
-  { id: 13, name: 'Carpaccio di Manzo', desc: 'Thinly sliced raw beef tenderloin, arugula, capers, lemon olive oil, shaved parmesan.', price: '$21', category: 'Antipasti e Insalate' },
-  { id: 14, name: 'Insalata di Carciofi', desc: 'Shaved raw artichokes, fennel, mint, pecorino, lemon vinaigrette.', price: '$16', category: 'Antipasti e Insalate' },
+  { id: 12, name: 'Malai Burrata', desc: 'Fresh burrata cheese, blistered cherry tomatoes, aged balsamic, basil oil.', price: '$18', category: 'Antipasti e Insalate' },
+  { id: 13, name: 'Kachha Gosht Carpaccio', desc: 'Thinly sliced raw beef tenderloin, arugula, capers, lemon olive oil, shaved parmesan.', price: '$21', category: 'Antipasti e Insalate' },
+  { id: 14, name: 'Hara Bhara Carciofi', desc: 'Shaved raw artichokes, fennel, mint, pecorino, lemon vinaigrette.', price: '$16', category: 'Antipasti e Insalate' },
 
-  { id: 15, name: 'Tiramisu Classico', desc: 'Espresso-soaked ladyfingers, mascarpone silk, dark cocoa powder.', price: '$12', category: 'Dolci' },
-  { id: 16, name: 'Panna Cotta al Basilico', desc: 'Vanilla bean and sweet basil infused cream, strawberry balsamico compote.', price: '$11', category: 'Dolci' },
-  { id: 17, name: 'Cannoli Siciliani', desc: 'Crispy shells filled with sweet ricotta, candied orange, pistachios.', price: '$10', category: 'Dolci' }
+  { id: 15, name: 'Shahi Tiramisu', desc: 'Espresso-soaked ladyfingers, mascarpone silk, dark cocoa powder.', price: '$12', category: 'Dolci' },
+  { id: 16, name: 'Panna Cotta ki Kheer', desc: 'Vanilla bean and sweet basil infused cream, strawberry balsamico compote.', price: '$11', category: 'Dolci' },
+  { id: 17, name: 'Meetha Cannoli', desc: 'Crispy shells filled with sweet ricotta, candied orange, pistachios.', price: '$10', category: 'Dolci' }
 ];
 
 export default function App() {
@@ -56,6 +56,18 @@ export default function App() {
         {currentPage === 'menu' && <Menu key="menu" />}
         {currentPage === 'booking' && <Booking key="booking" />}
       </AnimatePresence>
+
+      {/* Floating Widget */}
+      <motion.div 
+        className="floating-widget" 
+        onClick={() => setCurrentPage('booking')}
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1, duration: 0.8 }}
+      >
+        <Calendar size={20} />
+        <span>Reserve</span>
+      </motion.div>
     </div>
   );
 }
@@ -71,8 +83,8 @@ function Home({ setPage }) {
     >
       <section className="hero">
         <div className="hero-text">
-          <h3 className="sub-heading">A TASTE OF NAPOLI</h3>
-          <h1 className="hero-title">Real Italian pizza<br />with real ingredients</h1>
+          <h3 className="sub-heading">A TASTE OF MILAN & DELHI</h3>
+          <h1 className="hero-title">Real Italian pasta<br />with an Indian heart</h1>
           
           <button className="accent-btn mt-4" onClick={() => setPage('menu')}>
             Explore The Menu
@@ -80,11 +92,12 @@ function Home({ setPage }) {
         </div>
 
         <div className="hero-pizza-wrapper">
-          {/* Static, large, elegant pizza rendering */}
-          <img 
+          <motion.img 
             src="/pizza.png" 
             alt="Artistic Pizza" 
             className="huge-pizza-static"
+            animate={{ rotate: 360 }}
+            transition={{ repeat: Infinity, duration: 40, ease: "linear" }}
           />
         </div>
       </section>
@@ -140,14 +153,21 @@ function Menu() {
           <div key={idx} className="menu-category-section">
             <h2 className="category-title">{cat}</h2>
             <div className="menu-list">
-              {menuItems.filter(item => item.category === cat).map(item => (
-                <div key={item.id} className="menu-item-row">
+              {menuItems.filter(item => item.category === cat).map((item, i) => (
+                <motion.div 
+                  key={item.id} 
+                  className="menu-item-row"
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ duration: 0.6, delay: i * 0.1 }}
+                >
                   <div className="menu-item-info">
                     <h3 className="item-name">{item.name}</h3>
                     <p className="item-desc">{item.desc}</p>
                   </div>
                   <div className="menu-item-price">{item.price}</div>
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>
