@@ -284,12 +284,7 @@
   gap: 3rem 5rem;
 }
 
-.menu-item-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 2rem;
-}
+
 
 .menu-item-info {
   flex: 1;
@@ -499,4 +494,164 @@
 .floating-widget:hover {
   transform: translateY(-4px);
   box-shadow: 0 18px 50px rgba(227, 169, 60, 0.35);
+}
+
+/* ── CHEF STORY SECTION ── */
+.chef-story-section {
+  position: relative;
+  background: linear-gradient(rgba(0,18,15,0.75), rgba(0,18,15,0.92)), url('/chef_bg.png');
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+}
+
+.chef-story-overlay {
+  padding: 8rem 10%;
+  text-align: center;
+}
+
+/* ── INFO RIBBON ── */
+.info-ribbon {
+  background: rgba(0, 33, 26, 0.5);
+  border-top: 1px solid rgba(227, 169, 60, 0.1);
+  border-bottom: 1px solid rgba(227, 169, 60, 0.1);
+  padding: 4rem 10%;
+}
+
+.ribbon-content {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.ribbon-stat {
+  text-align: center;
+}
+
+.ribbon-value {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: 2.5rem;
+  color: var(--bg-accent);
+  margin-bottom: 0.4rem;
+}
+
+.ribbon-label {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+/* ── TESTIMONIALS ── */
+.testimonials-section {
+  padding: 7rem 10%;
+}
+
+.section-heading {
+  font-family: var(--font-serif);
+  font-size: 2.5rem;
+  text-align: center;
+  margin-bottom: 4rem;
+  color: var(--text-primary);
+}
+
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.testimonial-card {
+  padding: 2.5rem 2rem;
+  background: rgba(0, 33, 26, 0.4);
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.04);
+  transition: border-color 0.6s ease;
+}
+
+.testimonial-card:hover {
+  border-color: rgba(227, 169, 60, 0.15);
+}
+
+.testimonial-quote {
+  font-style: italic;
+  font-size: 1.1rem;
+  color: var(--text-primary);
+  margin-bottom: 1.5rem;
+  line-height: 1.7;
+}
+
+.testimonial-source {
+  color: var(--bg-accent);
+  font-family: var(--font-sans);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+}
+
+/* ── CTA SECTION ── */
+.cta-section {
+  padding: 8rem 10%;
+  background: linear-gradient(rgba(0,18,15,0.6), rgba(0,18,15,0.85)), url('/hero_dish.png');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+/* ── FOOTER ── */
+.site-footer {
+  background: rgba(0, 10, 8, 0.9);
+  border-top: 1px solid rgba(255,255,255,0.04);
+  padding: 5rem 10% 3rem 10%;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 3rem;
+  margin-bottom: 2rem;
+}
+
+.footer-col p {
+  margin: 0;
+}
+
+/* ── MENU ITEM ROW calm hover ── */
+.menu-item-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2rem;
+  padding: 1.5rem;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.03);
+  background: rgba(0,26,21,0.5);
+  transition: background 0.5s ease, border-color 0.5s ease;
+}
+
+.menu-item-row:hover {
+  background: rgba(0,40,32,0.7);
+  border-color: rgba(227, 169, 60, 0.12);
+}
+
+/* ── RESPONSIVE ADDITIONS ── */
+@media (max-width: 1024px) {
+  .ribbon-content { flex-direction: column; gap: 3rem; }
+  .footer-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 768px) {
+  .ribbon-value { font-size: 2rem; }
+  .section-heading { font-size: 2rem; }
+  .chef-story-overlay { padding: 5rem 5%; }
+  .cta-section { padding: 5rem 5%; }
+  .site-footer { padding: 3rem 5% 2rem 5%; }
 }
