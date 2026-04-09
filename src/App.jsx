@@ -1,15 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Calendar, Users, Clock, MessageSquare, CheckCircle } from 'lucide-react';
+import { Calendar, Users, Clock, MessageSquare, CheckCircle, MapPin, Phone, Mail } from 'lucide-react';
 import './App.css';
 
-export const pageVariants = {
-  initial: { opacity: 0, rotateX: 45, transformPerspective: 1200, scale: 0.95 },
-  in: { opacity: 1, rotateX: 0, transformPerspective: 1200, scale: 1 },
-  out: { opacity: 0, rotateX: -30, transformPerspective: 1200, scale: 0.97 }
+/* ── calm animation variants ── */
+const calmFade = {
+  initial: { opacity: 0, y: 30 },
+  animate: { opacity: 1, y: 0 },
+  exit:    { opacity: 0, y: -20 }
 };
+const calmTransition = { duration: 1.0, ease: [0.25, 0.46, 0.45, 0.94] };
 
-export const pageTransition = { duration: 1.4, ease: [0.22, 1, 0.36, 1] };
+const sectionReveal = {
+  hidden: { opacity: 0, y: 40 },
+  visible: { opacity: 1, y: 0 }
+};
+const sectionTransition = { duration: 1.2, ease: [0.25, 0.46, 0.45, 0.94] };
 
 const menuItems = [
 // pizzas
@@ -50,33 +56,38 @@ const menuItems = [
   { id: 17, name: 'Meetha Cannoli', desc: 'Crispy shells filled with sweet ricotta, candied orange, pistachios.', price: '₹550', category: 'Dolci' }
 ];
 
+/* ── App ── */
 export default function App() {
   const [currentPage, setCurrentPage] = useState('home');
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 2500);
+    const timer = setTimeout(() => setIsLoading(false), 2800);
     return () => clearTimeout(timer);
   }, []);
+
+  /* scroll to top on every page change */
+  const navigateTo = (page) => {
+    setCurrentPage(page);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   if (isLoading) {
     return (
       <div className="loader-container">
         <motion.div 
           animate={{ rotateY: 360 }}
-          transition={{ duration: 3.5, repeat: Infinity, ease: "linear" }}
+          transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
         >
           <span style={{ fontSize: '5rem', fontFamily: 'var(--font-script)', color: 'var(--bg-accent)'}}>BB</span>
         </motion.div>
         <motion.h2
           initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 2, repeat: Infinity, repeatType: 'reverse', ease: 'easeInOut' }}
-          style={{ marginTop: '2.5rem', fontFamily: 'var(--font-sans)', letterSpacing: '8px', fontSize: '1rem', color: 'var(--text-secondary)' }}
+          animate={{ opacity: 0.8 }}
+          transition={{ duration: 2.5, repeat: Infinity, repeatType: 'reverse', ease: 'easeInOut' }}
+          style={{ marginTop: '2.5rem', fontFamily: 'var(--font-sans)', letterSpacing: '8px', fontSize: '0.85rem', color: 'var(--text-secondary)' }}
         >
-          PREPARING EXPERIENCE
+          PREPARING YOUR EXPERIENCE
         </motion.h2>
       </div>
     );
@@ -87,35 +98,66 @@ export default function App() {
       {/* Navbar */}
       <motion.nav 
         className="navbar"
-        initial={{ y: -50, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1] }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1.5, ease: 'easeOut' }}
       >
-        <div className="brand-header" onClick={() => setCurrentPage('home')}>
+        <div className="brand-header" onClick={() => navigateTo('home')}>
           <h1 className="brand-title">Basilico Blu</h1>
         </div>
         
         <div className="nav-links">
-          <span className={`nav-item-elegant ${currentPage === 'home' ? 'active' : ''}`} onClick={() => setCurrentPage('home')}>Home</span>
-          <span className={`nav-item-elegant ${currentPage === 'menu' ? 'active' : ''}`} onClick={() => setCurrentPage('menu')}>Menu</span>
-          <span className={`nav-item-elegant ${currentPage === 'booking' ? 'active' : ''}`} onClick={() => setCurrentPage('booking')}>Reservations</span>
+          <span className={`nav-item-elegant ${currentPage === 'home' ? 'active' : ''}`} onClick={() => navigateTo('home')}>Home</span>
+          <span className={`nav-item-elegant ${currentPage === 'menu' ? 'active' : ''}`} onClick={() => navigateTo('menu')}>Menu</span>
+          <span className={`nav-item-elegant ${currentPage === 'booking' ? 'active' : ''}`} onClick={() => navigateTo('booking')}>Reservations</span>
         </div>
       </motion.nav>
 
       {/* Pages */}
       <AnimatePresence mode="wait">
-        {currentPage === 'home' && <Home key="home" setPage={setCurrentPage} />}
+        {currentPage === 'home' && <Home key="home" setPage={navigateTo} />}
         {currentPage === 'menu' && <Menu key="menu" />}
         {currentPage === 'booking' && <Booking key="booking" />}
       </AnimatePresence>
 
+      {/* Footer */}
+      <footer className="site-footer">
+        <div className="footer-grid">
+          <div className="footer-col">
+            <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.6rem', marginBottom: '1rem' }}>Basilico Blu</h3>
+            <p style={{ color: 'var(--text-secondary)', lineHeight: 1.8, fontSize: '0.95rem' }}>
+              Where two ancient culinary traditions come together in perfect harmony. Since 2018.
+            </p>
+          </div>
+          <div className="footer-col">
+            <h4 style={{ color: 'var(--bg-accent)', fontFamily: 'var(--font-sans)', letterSpacing: '2px', textTransform: 'uppercase', marginBottom: '1rem', fontSize: '0.85rem' }}>Visit Us</h4>
+            <p style={{ color: 'var(--text-secondary)', lineHeight: 2, fontSize: '0.9rem' }}>
+              <MapPin size={14} style={{ marginRight: '8px', verticalAlign: 'middle' }} />42 Connaught Place, New Delhi 110001<br/>
+              <Phone size={14} style={{ marginRight: '8px', verticalAlign: 'middle' }} />+91 11 4567 8900<br/>
+              <Mail size={14} style={{ marginRight: '8px', verticalAlign: 'middle' }} />ciao@basilicoblu.in
+            </p>
+          </div>
+          <div className="footer-col">
+            <h4 style={{ color: 'var(--bg-accent)', fontFamily: 'var(--font-sans)', letterSpacing: '2px', textTransform: 'uppercase', marginBottom: '1rem', fontSize: '0.85rem' }}>Hours</h4>
+            <p style={{ color: 'var(--text-secondary)', lineHeight: 2, fontSize: '0.9rem' }}>
+              Lunch: 12:00 PM – 3:00 PM<br/>
+              Dinner: 7:00 PM – 11:30 PM<br/>
+              Bar: 5:00 PM – 12:30 AM
+            </p>
+          </div>
+        </div>
+        <div style={{ textAlign: 'center', paddingTop: '3rem', borderTop: '1px solid rgba(255,255,255,0.05)', color: 'var(--text-dark-secondary)', fontSize: '0.8rem', letterSpacing: '1px' }}>
+          © 2025 Basilico Blu. All rights reserved.
+        </div>
+      </footer>
+
       {/* Floating Widget */}
       <motion.div 
         className="floating-widget" 
-        onClick={() => setCurrentPage('booking')}
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1.5, duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+        onClick={() => navigateTo('booking')}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 2, duration: 1.5 }}
       >
         <Calendar size={20} />
         <span>Reserve</span>
@@ -124,19 +166,25 @@ export default function App() {
   );
 }
 
+/* ══════════════════════════════════════
+   HOME PAGE
+   ══════════════════════════════════════ */
 function Home({ setPage }) {
   return (
     <motion.div 
       className="page"
-      variants={pageVariants}
-      initial="initial"
-      animate="in"
-      exit="out"
-      style={{ transformOrigin: "top center" }}
+      {...calmFade}
+      transition={calmTransition}
     >
+      {/* Hero */}
       <section className="hero">
         <div className="hero-grid">
-          <div className="hero-text-left">
+          <motion.div 
+            className="hero-text-left"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.4, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.2 }}
+          >
             <h3 className="sub-heading" style={{ textAlign: 'left', margin: '0 0 1.5rem 0' }}>A TASTE OF MILAN & DELHI</h3>
             <h1 className="hero-title" style={{ textAlign: 'left' }}>Real Italian pasta<br />with an Indian heart</h1>
             <p className="hero-description" style={{ textAlign: 'left', color: 'var(--text-secondary)', fontSize: '1.1rem', lineHeight: '1.8', maxWidth: '500px', marginBottom: '2.5rem' }}>
@@ -147,114 +195,184 @@ function Home({ setPage }) {
                 Explore The Menu
               </button>
             </div>
-          </div>
+          </motion.div>
           
-          <div className="hero-image-wrapper">
-             <motion.img 
+          <motion.div 
+            className="hero-image-wrapper"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 2, ease: 'easeOut', delay: 0.5 }}
+          >
+             <img 
                 src="/hero_dish.png" 
                 alt="Signature Dish" 
                 className="hero-dish"
-                initial={{ opacity: 0, scale: 0.85, rotateZ: -3 }}
-                animate={{ opacity: 1, scale: 1, rotateZ: 0 }}
-                transition={{ duration: 1.8, ease: [0.22, 1, 0.36, 1], delay: 0.3 }}
              />
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* Story Details */}
       <section className="artistic-details">
         <div className="details-grid">
-          <div className="detail-card">
-            <h2 className="detail-title">Our Heritage</h2>
-            <div className="detail-line"></div>
-            <p className="detail-text">
-              Born from the winding streets of Napoli, our recipes have been passed down through five generations. We honor the simplicity and passion of traditional Italian gastronomy.
-            </p>
-          </div>
-          <div className="detail-card">
-            <h2 className="detail-title">Wood-Fired</h2>
-            <div className="detail-line"></div>
-            <p className="detail-text">
-              Our custom brick oven, imported directly from Italy, burns oak and olive wood to give our dough its signature blistered crust and smoky aroma.
-            </p>
-          </div>
-          <div className="detail-card">
-            <h2 className="detail-title">Imported Ingredients</h2>
-            <div className="detail-line"></div>
-            <p className="detail-text">
-              San Marzano tomatoes from the volcanic soils of Mount Vesuvius, D.O.P. buffalo mozzarella from Campania, and extra virgin olive oil pressed in Apulia.
-            </p>
-          </div>
+          {[
+            { title: 'Our Heritage', text: 'Born from the winding streets of Napoli, our recipes have been passed down through five generations. We honor the simplicity and passion of traditional Italian gastronomy.' },
+            { title: 'Wood-Fired', text: 'Our custom brick oven, imported directly from Italy, burns oak and olive wood to give our dough its signature blistered crust and smoky aroma.' },
+            { title: 'Imported Ingredients', text: 'San Marzano tomatoes from the volcanic soils of Mount Vesuvius, D.O.P. buffalo mozzarella from Campania, and extra virgin olive oil pressed in Apulia.' }
+          ].map((card, i) => (
+            <motion.div 
+              key={i} 
+              className="detail-card"
+              variants={sectionReveal}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ ...sectionTransition, delay: i * 0.2 }}
+            >
+              <h2 className="detail-title">{card.title}</h2>
+              <div className="detail-line"></div>
+              <p className="detail-text">{card.text}</p>
+            </motion.div>
+          ))}
         </div>
       </section>
 
-      {/* Chef Story */}
-      <section className="chef-story" style={{ padding: '8rem 10%', background: 'linear-gradient(rgba(0,18,15,0.7), rgba(0,18,15,0.9)), url(/chef_bg.png)', backgroundSize: 'cover', backgroundAttachment: 'fixed', backgroundPosition: 'center', textAlign: 'center' }}>
-        <motion.div 
-          initial={{ opacity: 0, rotateY: 30 }}
-          whileInView={{ opacity: 1, rotateY: 0 }}
+      {/* Chef Story — with background image */}
+      <section className="chef-story-section">
+        <div className="chef-story-overlay">
+          <motion.div
+            variants={sectionReveal}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            transition={sectionTransition}
+          >
+            <h2 className="detail-title" style={{ fontSize: '2.8rem', color: 'var(--bg-accent)', marginBottom: '0.5rem' }}>La Famiglia</h2>
+            <div className="detail-line" style={{ margin: '0 auto 2rem auto' }}></div>
+            <p style={{ maxWidth: '750px', margin: '0 auto', fontSize: '1.1rem', lineHeight: 2, color: 'var(--text-secondary)' }}>
+              Chef Alessandro Singh brings his dual heritage to Basilico Blu. Trained in the heart of Milan and raised in the vibrant streets of Delhi, he masterfully harmonizes the rich, earthy flavors of traditional Italian recipes with the fragrant, bold spices of India. Every dish is a bridge between two ancient culinary worlds.
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Quick Info Ribbon */}
+      <section className="info-ribbon">
+        <motion.div
+          className="ribbon-content"
+          variants={sectionReveal}
+          initial="hidden"
+          whileInView="visible"
           viewport={{ once: true }}
-          transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1] }}
-          style={{ transformPerspective: 1000 }}
+          transition={sectionTransition}
         >
-           <h2 className="detail-title" style={{ fontSize: '3rem', color: 'var(--bg-accent)' }}>La Famiglia</h2>
-           <div className="detail-line" style={{ margin: '0 auto 2rem auto' }}></div>
-           <p style={{ maxWidth: '800px', margin: '0 auto', fontSize: '1.1rem', lineHeight: 2, color: 'var(--text-secondary)'}}>
-             Chef Alessandro Singh brings his dual heritage to Basilico Blu. Trained in the heart of Milan and raised in the vibrant streets of Delhi, he masterfully harmonizes the rich, earthy flavors of traditional Italian recipes with the fragrant, bold spices of India. Every dish is a bridge between two ancient culinary worlds.
-           </p>
+          {[
+            { label: 'Established', value: '2018' },
+            { label: 'Dishes Served', value: '50,000+' },
+            { label: 'Wood-Fired Oven', value: '900°F' },
+            { label: 'Cuisines Fused', value: '2 Worlds' }
+          ].map((stat, i) => (
+            <div key={i} className="ribbon-stat">
+              <span className="ribbon-value">{stat.value}</span>
+              <span className="ribbon-label">{stat.label}</span>
+            </div>
+          ))}
         </motion.div>
       </section>
 
       {/* Testimonials */}
-      <section className="testimonials" style={{ padding: '6rem 10%' }}>
-         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '3rem' }}>
-            <motion.div className="glass-card" whileHover={{ rotateX: 5, rotateY: -5, scale: 1.05 }} style={{ transformPerspective: 1000, padding: '3rem 2rem', background: 'rgba(255,255,255,0.02)', borderRadius: '15px', border: '1px solid rgba(255,255,255,0.05)', boxShadow: '0 20px 40px rgba(0,0,0,0.5)' }}>
-               <p style={{ fontStyle: 'italic', fontSize: '1.2rem', color: 'var(--text-primary)', marginBottom: '1.5rem', lineHeight: 1.6 }}>"A revelatory dining experience. The Truffle Malai Broccoli is nothing short of spectacular."</p>
-               <h4 style={{ color: 'var(--bg-accent)', fontFamily: 'var(--font-sans)', letterSpacing: '2px', textTransform: 'uppercase'}}>- The Culinary Times</h4>
+      <section className="testimonials-section">
+        <motion.h2
+          className="section-heading"
+          variants={sectionReveal}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          transition={sectionTransition}
+        >What The Critics Say</motion.h2>
+        <div className="testimonials-grid">
+          {[
+            { quote: '"A revelatory dining experience. The Truffle Malai Broccoli is nothing short of spectacular."', source: '— The Culinary Times' },
+            { quote: '"Basilico Blu executes Indo-Italian fusion with an elegance previously unseen in the fine dining space."', source: '— Vogue Gastronomy' },
+            { quote: '"The Palak Paneer Lasagna alone is worth the pilgrimage to Connaught Place."', source: '— India Food Quarterly' }
+          ].map((t, i) => (
+            <motion.div 
+              key={i} 
+              className="testimonial-card"
+              variants={sectionReveal}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ ...sectionTransition, delay: i * 0.15 }}
+            >
+              <p className="testimonial-quote">{t.quote}</p>
+              <h4 className="testimonial-source">{t.source}</h4>
             </motion.div>
-            <motion.div className="glass-card" whileHover={{ rotateX: 5, rotateY: 5, scale: 1.05 }} style={{ transformPerspective: 1000, padding: '3rem 2rem', background: 'rgba(255,255,255,0.02)', borderRadius: '15px', border: '1px solid rgba(255,255,255,0.05)', boxShadow: '0 20px 40px rgba(0,0,0,0.5)' }}>
-               <p style={{ fontStyle: 'italic', fontSize: '1.2rem', color: 'var(--text-primary)', marginBottom: '1.5rem', lineHeight: 1.6 }}>"Basilico Blu executes Indo-Italian fusion with an elegance previously unseen in the fine dining space."</p>
-               <h4 style={{ color: 'var(--bg-accent)', fontFamily: 'var(--font-sans)', letterSpacing: '2px', textTransform: 'uppercase'}}>- Vogue Gastronomy</h4>
-            </motion.div>
-         </div>
+          ))}
+        </div>
+      </section>
+
+      {/* CTA — Reservation Banner */}
+      <section className="cta-section">
+        <motion.div
+          variants={sectionReveal}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          transition={sectionTransition}
+          style={{ textAlign: 'center' }}
+        >
+          <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: '2.5rem', marginBottom: '1rem' }}>Ready for an Unforgettable Evening?</h2>
+          <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem', marginBottom: '2.5rem', maxWidth: '600px', margin: '0 auto 2.5rem auto' }}>
+            Reserve your table now and let us craft an evening of extraordinary flavors, warm hospitality, and memories that linger.
+          </p>
+          <button className="accent-btn" onClick={() => setPage('booking')}>
+            Reserve a Table
+          </button>
+        </motion.div>
       </section>
     </motion.div>
   );
 }
 
+/* ══════════════════════════════════════
+   MENU PAGE
+   ══════════════════════════════════════ */
 function Menu() {
   const categories = [...new Set(menuItems.map(item => item.category))];
 
   return (
     <motion.div 
       className="page menu-page-wrapper"
-      variants={pageVariants}
-      initial="initial"
-      animate="in"
-      exit="out"
-      style={{ transformOrigin: "top center", background: "transparent" }}
+      {...calmFade}
+      transition={calmTransition}
     >
       <div className="menu-page-header">
-        <h1 className="page-title">I Nostri Piatti</h1>
-        <p className="page-subtitle">A culinary journey through Italy</p>
+        <motion.h1 className="page-title" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1.2 }}>I Nostri Piatti</motion.h1>
+        <motion.p className="page-subtitle" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1.2, delay: 0.3 }}>A culinary journey through Italy & India</motion.p>
       </div>
 
       <div className="menu-classic-container">
         {categories.map((cat, idx) => (
           <div key={idx} className="menu-category-section">
-            <h2 className="category-title">{cat}</h2>
+            <motion.h2 
+              className="category-title"
+              variants={sectionReveal}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              transition={sectionTransition}
+            >{cat}</motion.h2>
             <div className="menu-list">
               {menuItems.filter(item => item.category === cat).map((item, i) => (
                 <motion.div 
                   key={item.id} 
                   className="menu-item-row"
-                  initial={{ opacity: 0, rotateX: 60 }}
-                  whileInView={{ opacity: 1, rotateX: 0 }}
-                  whileHover={{ scale: 1.05, rotateX: 10, rotateY: 5, boxShadow: "0px 15px 35px rgba(0,0,0,0.6)", transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } }}
-                  style={{ transformPerspective: 1000, cursor: "pointer", background: "rgba(0,26,21,0.8)", padding: "1.5rem", borderRadius: "10px", border: "1px solid rgba(255,255,255,0.05)" }}
-                  viewport={{ once: true, margin: "-50px" }}
-                  transition={{ duration: 1.2, delay: i * 0.15, ease: [0.22, 1, 0.36, 1] }}
+                  variants={sectionReveal}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, margin: "-40px" }}
+                  transition={{ ...sectionTransition, delay: i * 0.08 }}
                 >
                   <div className="menu-item-info">
                     <h3 className="item-name">{item.name}</h3>
@@ -271,17 +389,21 @@ function Menu() {
   );
 }
 
+/* ══════════════════════════════════════
+   BOOKING PAGE
+   ══════════════════════════════════════ */
 function Booking() {
   const [status, setStatus] = useState('idle');
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setStatus('booked');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   if (status === 'booked') {
     return (
-      <motion.div className="page center-content" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+      <motion.div className="page center-content" {...calmFade} transition={calmTransition}>
         <div className="success-card">
           <CheckCircle size={64} className="success-icon" />
           <h1 className="page-title">Table Confirmed</h1>
@@ -297,19 +419,24 @@ function Booking() {
   return (
     <motion.div 
       className="page"
-      variants={pageVariants}
-      initial="initial"
-      animate="in"
-      exit="out"
-      style={{ transformOrigin: "top center" }}
+      {...calmFade}
+      transition={calmTransition}
     >
       <div className="booking-page-header">
-        <h1 className="page-title">Reserve a Table</h1>
-        <p className="page-subtitle">Experience the magic of authentic Italian dining</p>
+        <motion.h1 className="page-title" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1.2 }}>Reserve a Table</motion.h1>
+        <motion.p className="page-subtitle" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1.2, delay: 0.3 }}>Experience the magic of authentic Indo-Italian dining</motion.p>
       </div>
 
       <div className="booking-container">
-        <form className="booking-form" onSubmit={handleSubmit}>
+        <motion.form 
+          className="booking-form" 
+          onSubmit={handleSubmit}
+          variants={sectionReveal}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          transition={sectionTransition}
+        >
           <h2 className="form-title">Seat Booking System</h2>
           
           <div className="form-grid">
@@ -362,9 +489,16 @@ function Booking() {
           <button type="submit" className="accent-btn submit-booking">
             Confirm Reservation
           </button>
-        </form>
+        </motion.form>
 
-        <div className="booking-sidebar">
+        <motion.div 
+          className="booking-sidebar"
+          variants={sectionReveal}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          transition={{ ...sectionTransition, delay: 0.3 }}
+        >
           <h3 className="sidebar-title">Important Details</h3>
           <ul className="sidebar-list">
             <li><strong>Grace Period:</strong> Tables are held for 15 minutes past the reserved time.</li>
@@ -375,9 +509,9 @@ function Booking() {
           
           <div className="contact-box mt-4">
              <h4 className="detail-title" style={{ fontSize: '1rem', marginBottom: '0.5rem' }}>Need assistance?</h4>
-             <p>Call us at: +1 (555) 123-4567<br/>Email: ciao@basilicoblu.com</p>
+             <p style={{ color: 'var(--text-secondary)' }}>Call us at: +91 11 4567 8900<br/>Email: ciao@basilicoblu.in</p>
           </div>
-        </div>
+        </motion.div>
       </div>
     </motion.div>
   );
