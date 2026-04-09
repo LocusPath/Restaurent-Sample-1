@@ -4,27 +4,32 @@ import { Calendar, Users, Clock, MessageSquare, CheckCircle } from 'lucide-react
 import './App.css';
 
 const menuItems = [
-  { id: 1, name: 'Makhani Margherita (Verace)', desc: 'San Marzano tomatoes, buffalo mozzarella, fresh basil, extra virgin olive oil.', price: '$18', category: 'Wood Fired Pizza' },
-  { id: 2, name: 'Teekha Salami Diavola', desc: 'Tomato sauce, fior di latte, spicy Calabrian salami, chili oil, roasted peppers.', price: '$22', category: 'Wood Fired Pizza' },
-  { id: 3, name: 'Char Magaz Formaggi', desc: 'Mozzarella, gorgonzola dolce, parmigiano reggiano, fontina, truffle honey.', price: '$24', category: 'Wood Fired Pizza' },
-  { id: 4, name: 'Nawabi Prosciutto', desc: 'Cherry tomatoes, mozzarella, aged prosciutto di Parma, wild arugula, shaved parmesan.', price: '$26', category: 'Wood Fired Pizza' },
+  // Pizzas
+  { id: 1, name: 'Makhani Margherita (Verace)', desc: 'San Marzano tomatoes, buffalo mozzarella, fresh basil, extra virgin olive oil.', price: '₹595', category: 'Wood Fired Pizza' },
+  { id: 2, name: 'Teekha Chicken Diavola', desc: 'Tomato sauce, fior di latte, spicy chicken pepperoni, chili oil, roasted peppers.', price: '₹895', category: 'Wood Fired Pizza' },
+  { id: 3, name: 'Char Magaz Formaggi', desc: 'Mozzarella, gorgonzola dolce, parmigiano reggiano, fontina, truffle honey.', price: '₹950', category: 'Wood Fired Pizza' },
+  { id: 4, name: 'Smoked Chicken & Rucola', desc: 'Cherry tomatoes, mozzarella, wood-smoked chicken breast, wild arugula, shaved parmesan.', price: '₹895', category: 'Wood Fired Pizza' },
   
-  { id: 5, name: 'Reshmi Spaghetti Carbonara', desc: 'Crispy guanciale, egg yolk, pecorino romano, cracked black pepper. No cream.', price: '$24', category: 'Handmade Pasta' },
-  { id: 6, name: 'Junglee Ragu Pappardelle', desc: 'Wide ribbon pasta, slow-braised wild boar ragù, juniper berries, pecorino.', price: '$28', category: 'Handmade Pasta' },
-  { id: 7, name: 'Samundari Linguine', desc: 'Fresh Manila clams, white wine, garlic, parsley, Calabrian chili flakes.', price: '$29', category: 'Handmade Pasta' },
-  { id: 8, name: 'Kala Truffle Gnocchi', desc: 'Potato dumplings, black truffle cream, wild mushrooms, parmesan crisp.', price: '$27', category: 'Handmade Pasta' },
+  // Pastas
+  { id: 5, name: 'Reshmi Chicken Carbonara', desc: 'Crispy smoked chicken, egg yolk, pecorino romano, cracked black pepper. No cream.', price: '₹850', category: 'Handmade Pasta' },
+  { id: 6, name: 'Murg Ragu Pappardelle', desc: 'Wide ribbon pasta, slow-braised minced chicken ragù, juniper berries, pecorino.', price: '₹795', category: 'Handmade Pasta' },
+  { id: 7, name: 'Samundari Linguine', desc: 'Fresh shrimp & calamari, white wine, garlic, parsley, Calabrian chili flakes.', price: '₹1095', category: 'Handmade Pasta' },
+  { id: 8, name: 'Kala Truffle Gnocchi', desc: 'Potato dumplings, black truffle cream, wild mushrooms, parmesan crisp.', price: '₹995', category: 'Handmade Pasta' },
 
-  { id: 9, name: 'Shahi Bistecca', desc: '32oz dry-aged Porterhouse, grilled lemon, rosemary roasted potatoes. Designed for two.', price: '$120', category: 'Secondi (Mains)' },
-  { id: 10, name: 'Tandoori Branzino', desc: 'Whole roasted Mediterranean sea bass, cherry tomatoes, capers, white wine sauce.', price: '$42', category: 'Secondi (Mains)' },
-  { id: 11, name: 'Nalli Nihari Osso Buco', desc: 'Braised veal shank, saffron risotto, gremolata, bone marrow.', price: '$48', category: 'Secondi (Mains)' },
+  // Mains
+  { id: 9, name: 'Tandoori Roast Chicken (Pollo)', desc: 'Half roasted organic chicken, grilled lemon, rosemary roasted potatoes. Designed for two.', price: '₹1495', category: 'Secondi (Mains)' },
+  { id: 10, name: 'Tandoori Branzino', desc: 'Whole roasted Mediterranean sea bass, cherry tomatoes, capers, white wine sauce.', price: '₹1895', category: 'Secondi (Mains)' },
+  
+  // Garlic Breads & Starters
+  { id: 18, name: 'Lahsuni Garlic Bread Classico', desc: 'Fresh baked ciabatta, roasted garlic butter, parsley, sea salt.', price: '₹295', category: 'Antipasti e Pane' },
+  { id: 19, name: 'Cheese Chilly Garlic Bread', desc: 'Melted mozzarella, green chilies, roasted garlic butter, parmesan crust.', price: '₹450', category: 'Antipasti e Pane' },
+  { id: 12, name: 'Malai Burrata', desc: 'Fresh burrata cheese, blistered cherry tomatoes, aged balsamic, basil oil.', price: '₹750', category: 'Antipasti e Pane' },
+  { id: 13, name: 'Hara Bhara Carciofi', desc: 'Shaved raw artichokes, fennel, mint, pecorino, lemon vinaigrette.', price: '₹650', category: 'Antipasti e Pane' },
 
-  { id: 12, name: 'Malai Burrata', desc: 'Fresh burrata cheese, blistered cherry tomatoes, aged balsamic, basil oil.', price: '$18', category: 'Antipasti e Insalate' },
-  { id: 13, name: 'Kachha Gosht Carpaccio', desc: 'Thinly sliced raw beef tenderloin, arugula, capers, lemon olive oil, shaved parmesan.', price: '$21', category: 'Antipasti e Insalate' },
-  { id: 14, name: 'Hara Bhara Carciofi', desc: 'Shaved raw artichokes, fennel, mint, pecorino, lemon vinaigrette.', price: '$16', category: 'Antipasti e Insalate' },
-
-  { id: 15, name: 'Shahi Tiramisu', desc: 'Espresso-soaked ladyfingers, mascarpone silk, dark cocoa powder.', price: '$12', category: 'Dolci' },
-  { id: 16, name: 'Panna Cotta ki Kheer', desc: 'Vanilla bean and sweet basil infused cream, strawberry balsamico compote.', price: '$11', category: 'Dolci' },
-  { id: 17, name: 'Meetha Cannoli', desc: 'Crispy shells filled with sweet ricotta, candied orange, pistachios.', price: '$10', category: 'Dolci' }
+  // Desserts
+  { id: 15, name: 'Shahi Tiramisu', desc: 'Espresso-soaked ladyfingers, mascarpone silk, dark cocoa powder.', price: '₹550', category: 'Dolci' },
+  { id: 16, name: 'Panna Cotta ki Kheer', desc: 'Vanilla bean and sweet basil infused cream, strawberry balsamico compote.', price: '₹495', category: 'Dolci' },
+  { id: 17, name: 'Meetha Cannoli', desc: 'Crispy shells filled with sweet ricotta, candied orange, pistachios.', price: '₹550', category: 'Dolci' }
 ];
 
 export default function App() {
@@ -89,16 +94,6 @@ function Home({ setPage }) {
           <button className="accent-btn mt-4" onClick={() => setPage('menu')}>
             Explore The Menu
           </button>
-        </div>
-
-        <div className="hero-pizza-wrapper">
-          <motion.img 
-            src="/pizza.png" 
-            alt="Artistic Pizza" 
-            className="huge-pizza-static"
-            animate={{ rotate: 360 }}
-            transition={{ repeat: Infinity, duration: 40, ease: "linear" }}
-          />
         </div>
       </section>
 

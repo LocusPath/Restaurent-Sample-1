@@ -3,7 +3,22 @@
   min-height: 100vh;
   position: relative;
   background-color: var(--bg-dark);
-  background: radial-gradient(circle at top right, rgba(63, 24, 28, 0.4), #0f0a0c 60%);
+  background-image: linear-gradient(rgba(15, 10, 12, 0.96), rgba(15, 10, 12, 0.99)), url('/pizza.png');
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.loader-container {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--bg-dark);
+  z-index: 9999;
 }
 
 .mt-4 { margin-top: 2rem; }
@@ -146,22 +161,7 @@
   transform: translateY(-4px) scale(1.02);
 }
 
-/* HUGE STATIC PIZZA */
-.hero-pizza-wrapper {
-  position: relative;
-  margin-top: 4rem;
-  width: 60vh;
-  height: 60vh;
-  z-index: 1;
-  pointer-events: none;
-}
 
-.huge-pizza-static {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  filter: drop-shadow(0 20px 40px rgba(0,0,0,0.8));
-}
 
 /* ARTISTIC DETAILS SECTION */
 .artistic-details {
@@ -432,7 +432,6 @@
   .details-grid { grid-template-columns: 1fr; gap: 3rem; }
   .booking-container { grid-template-columns: 1fr; }
   .menu-list { grid-template-columns: 1fr; }
-  .hero-pizza-wrapper { bottom: -40%; width: 120vh; height: 120vh; margin-top: 0;}
 }
 
 @media (max-width: 768px) {
