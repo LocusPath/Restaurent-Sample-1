@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Menu, User, ShoppingBag, ArrowUpRight } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Menu, User, ShoppingBag, ArrowUpRight, X } from 'lucide-react';
 import './App.css';
 
 const fadeUpVariant = {
@@ -17,22 +17,103 @@ const staggerContainer = {
 };
 
 const menuItems = [
-  { id: 1, name: 'Portobello', desc: 'Mushroom cream soup (based on chicken broth) with fried oyster mushrooms and olive oil.', category: 'Hot dishes', image: '/hot_dish.png' },
-  { id: 2, name: 'Signature Pizza', desc: 'Authentic Italian pizza sliced on a wooden board with classic tomato sauce, mozzarella, and fresh basil.', category: 'Pizza', image: '/pizza.png' },
-  { id: 3, name: 'Truffle Pasta', desc: 'Fresh Italian pasta elegantly plated, with creamy truffle sauce and parmesan savings.', category: 'Pasta', image: '/pasta.png' },
-  { id: 4, name: 'Risotto al Nero', desc: 'Arborio rice cooked in squid ink broth, topped with seared scallops.', category: 'Ravioli and risotto', image: '/hot_dish.png' },
+  { id: 1, name: 'Margherita', desc: 'Tomato sauce, mozzarella, fresh basil, extra virgin olive oil.', price: '$14', category: 'Pizza' },
+  { id: 2, name: 'Diavola', desc: 'Tomato sauce, mozzarella, spicy salami, chili oil.', price: '$16', category: 'Pizza' },
+  { id: 3, name: 'Quattro Formaggi', desc: 'Mozzarella, gorgonzola, parmesan, fontina.', price: '$18', category: 'Pizza' },
+  { id: 4, name: 'Spaghetti Carbonara', desc: 'Guanciale, egg yolk, pecorino romano, black pepper.', price: '$19', category: 'Pasta' },
+  { id: 5, name: 'Truffle Pappardelle', desc: 'Hand-cut pasta, black truffle sauce, parmesan shavings.', price: '$22', category: 'Pasta' },
+  { id: 6, name: 'Lasagna Classica', desc: 'Beef ragu, bechamel, parmesan, baked to perfection.', price: '$20', category: 'Pasta' },
+  { id: 7, name: 'Osso Buco', desc: 'Braised veal shanks with vegetables, white wine and broth.', price: '$34', category: 'Hot dishes' },
+  { id: 8, name: 'Chicken Parmigiana', desc: 'Breaded chicken breast topped with marinara and mozzarella.', price: '$26', category: 'Hot dishes' },
+  { id: 9, name: 'Risotto ai Frutti di Mare', desc: 'Arborio rice, squid, clams, mussels, shrimp.', price: '$28', category: 'Ravioli and risotto' },
+  { id: 10, name: 'Ravioli al Tartufo', desc: 'Ricotta and truffle stuffed ravioli in butter sage sauce.', price: '$24', category: 'Ravioli and risotto' },
+  { id: 11, name: 'Caprese Salad', desc: 'Fresh mozzarella, tomatoes, basil, balsamic glaze.', price: '$15', category: 'Salads' },
+  { id: 12, name: 'Tiramisu', desc: 'Coffee-soaked ladyfingers, mascarpone cream, cocoa.', price: '$10', category: 'Dessert' },
+  { id: 13, name: 'Panna Cotta', desc: 'Vanilla bean panna cotta, fresh berry compote.', price: '$9', category: 'Dessert' }
 ];
 
 function App() {
-  const [activeCategory, setActiveCategory] = useState('Among all categories');
-  const categories = ['Among all categories', 'Pizza', 'Pasta', 'Hot dishes', 'Ravioli and risotto', 'Salads', 'Breakfast'];
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [activeCategory, setActiveCategory] = useState('Pizza');
+  const [popupMessage, setPopupMessage] = useState(null);
 
-  const filteredMenu = activeCategory === 'Among all categories' 
-    ? menuItems 
-    : menuItems.filter(item => item.category === activeCategory);
+  const categories = ['Pizza', 'Pasta', 'Hot dishes', 'Ravioli and risotto', 'Salads', 'Dessert'];
+
+  const filteredMenu = menuItems.filter(item => item.category === activeCategory);
+
+  const showPopup = (msg) => {
+    setPopupMessage(msg);
+    setTimeout(() => setPopupMessage(null), 3000);
+  };
 
   return (
     <div className="app-container">
+      {/* Toast Notification */}
+      <AnimatePresence>
+        {popupMessage && (
+          <motion.div 
+            className="toast"
+            initial={{ opacity: 0, y: -20, x: '-50%' }}
+            animate={{ opacity: 1, y: 20, x: '-50%' }}
+            exit={{ opacity: 0, y: -20, x: '-50%' }}
+          >
+            {popupMessage}
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Fullscreen Menu Overlay */}
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.div 
+            className="menu-overlay"
+            initial={{ opacity: 0, clipPath: 'circle(0% at 50% 0%)' }}
+            animate={{ opacity: 1, clipPath: 'circle(150% at 50% 0%)' }}
+            exit={{ opacity: 0, clipPath: 'circle(0% at 50% 0%)' }}
+            transition={{ duration: 0.7, ease: [0.76, 0, 0.24, 1] }}
+          >
+             <div className="menu-overlay-header">
+                <h2 className="brand-title">Basilico Blu</h2>
+                <button className="close-menu-btn" onClick={() => setIsMenuOpen(false)}>
+                  <X size={32} />
+                </button>
+             </div>
+             
+             <div className="menu-overlay-content">
+                <div className="menu-categories">
+                  {categories.map(cat => (
+                    <button 
+                      key={cat} 
+                      className={`menu-cat-btn ${activeCategory === cat ? 'active' : ''}`}
+                      onClick={() => setActiveCategory(cat)}
+                    >
+                      {cat}
+                    </button>
+                  ))}
+                </div>
+
+                <motion.div 
+                  className="menu-text-list"
+                  key={activeCategory}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.4 }}
+                >
+                  {filteredMenu.map((item) => (
+                    <div key={item.id} className="menu-text-item">
+                      <div className="menu-text-header">
+                        <h3>{item.name}</h3>
+                        <span className="price">{item.price}</span>
+                      </div>
+                      <p>{item.desc}</p>
+                    </div>
+                  ))}
+                </motion.div>
+             </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Navigation */}
       <motion.nav 
         className="navbar"
@@ -41,19 +122,23 @@ function App() {
         transition={{ duration: 0.8, ease: "easeOut" }}
       >
         <div className="nav-left">
-          <div className="menu-icon"><Menu size={24} /></div>
-          <span className="nav-item">MENU</span>
-          <span className="nav-item">SPECIALS</span>
+          <div className="menu-icon" onClick={() => setIsMenuOpen(true)}>
+            <Menu size={24} /> <span style={{marginLeft: '8px'}}>MENU</span>
+          </div>
+          <span className="nav-item" onClick={() => showPopup('Specials coming soon!')}>SPECIALS</span>
         </div>
         
         <div className="brand">
           <h1 className="brand-title">Basilico Blu</h1>
-          <div className="brand-subtitle">RESTAURANT & DELIVERY</div>
         </div>
         
         <div className="nav-right">
-          <span className="nav-item"><User size={18} /> MY ACCOUNT</span>
-          <span className="nav-item"><ShoppingBag size={18} /> BASKET</span>
+          <span className="nav-item" onClick={() => showPopup('Opening User Account...')}>
+            <User size={18} /> MY ACCOUNT
+          </span>
+          <span className="nav-item" onClick={() => showPopup('Basket is empty')}>
+            <ShoppingBag size={18} /> BASKET
+          </span>
         </div>
       </motion.nav>
 
@@ -75,11 +160,17 @@ function App() {
 
         <motion.div 
           className="hero-image-container"
-          initial={{ opacity: 0, y: 100 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.4 }}
+          initial={{ opacity: 0, y: 100, scale: 0.8 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 1.2, delay: 0.4, type: "spring" }}
         >
-          <img src="/pizza.png" alt="Delicious Pizza" className="hero-image" />
+          <motion.img 
+            src="/pizza.png" 
+            alt="Delicious Pizza" 
+            className="hero-image revolving-pizza"
+            animate={{ rotate: 360 }}
+            transition={{ repeat: Infinity, duration: 25, ease: "linear" }}
+          />
         </motion.div>
 
         <motion.div 
@@ -87,7 +178,8 @@ function App() {
           initial={{ opacity: 0, scale: 0 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, delay: 0.8 }}
-          whileHover={{ rotate: 15 }}
+          whileHover={{ rotate: 15, scale: 1.1 }}
+          onClick={() => setIsMenuOpen(true)}
         >
           View Menu <ArrowUpRight size={16} style={{ marginLeft: '5px' }} />
         </motion.div>
@@ -108,63 +200,6 @@ function App() {
           <motion.p className="intro-desc" variants={fadeUpVariant}>
             This is a restaurant where food is always the center of attention. Our dishes amaze the guest, discover new tastes for him and bring real pleasure. Authentic Italian methods combined with local fresh ingredients.
           </motion.p>
-        </motion.div>
-      </section>
-
-      {/* Menu Section */}
-      <section className="menu-section">
-        <motion.div 
-          className="menu-header"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={fadeUpVariant}
-        >
-          <h2>Popular dishes</h2>
-        </motion.div>
-
-        <motion.div 
-          className="categories"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={fadeUpVariant}
-        >
-          {categories.map(cat => (
-            <button 
-              key={cat} 
-              className={`category-pill ${activeCategory === cat ? 'active' : ''}`}
-              onClick={() => setActiveCategory(cat)}
-            >
-              {cat}
-            </button>
-          ))}
-        </motion.div>
-
-        <motion.div 
-          className="menu-grid"
-          layout
-        >
-          {filteredMenu.map((item, index) => (
-            <motion.div 
-              key={item.id} 
-              className="menu-card"
-              layout
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.9 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-            >
-              <div className="menu-card-img">
-                <img src={item.image} alt={item.name} />
-              </div>
-              <div className="menu-card-header">
-                <h3>{item.name}</h3>
-                <span>Choose <ArrowUpRight size={14} /></span>
-              </div>
-              <p className="menu-card-desc">{item.desc}</p>
-            </motion.div>
-          ))}
         </motion.div>
       </section>
 
@@ -190,7 +225,7 @@ function App() {
           <h2>Book a Table</h2>
           <p>Reserve your spot at Basilico Blu. We recommend booking at least two days in advance for weekend dinners.</p>
           
-          <form onSubmit={(e) => e.preventDefault()}>
+          <form onSubmit={(e) => { e.preventDefault(); showPopup('Table reserved successfully!'); }}>
             <div className="form-group">
               <label>Name</label>
               <input type="text" placeholder="Your full name" required />
@@ -224,6 +259,7 @@ function App() {
             </div>
             
             <motion.button 
+              type="submit"
               className="submit-btn"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
@@ -238,9 +274,9 @@ function App() {
       <footer className="footer">
         <h2 className="brand-title" style={{ fontSize: '2rem', marginBottom: '2rem' }}>Basilico Blu</h2>
         <div className="footer-links">
-          <a href="#">Instagram</a>
-          <a href="#">Facebook</a>
-          <a href="#">TripAdvisor</a>
+          <a href="#" onClick={(e) => { e.preventDefault(); showPopup('Opening Instagram...'); }}>Instagram</a>
+          <a href="#" onClick={(e) => { e.preventDefault(); showPopup('Opening Facebook...'); }}>Facebook</a>
+          <a href="#" onClick={(e) => { e.preventDefault(); showPopup('Opening TripAdvisor...'); }}>TripAdvisor</a>
         </div>
         <p>&copy; 2026 Basilico Blu Restaurant. All rights reserved.</p>
       </footer>
