@@ -102,8 +102,9 @@ export default function App() {
         animate={{ opacity: 1 }}
         transition={{ duration: 1.5, ease: 'easeOut' }}
       >
-        <div className="brand-header" onClick={() => navigateTo('home')}>
-          <img src="/logo.svg" alt="Basilico Blu" style={{ height: '48px', filter: 'drop-shadow(0px 4px 6px rgba(0,0,0,0.4))' }} />
+        <div className="brand-header" onClick={() => navigateTo('home')} style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+          <img src="/logo.svg" alt="Basilico Blu Logo" style={{ height: '48px', filter: 'drop-shadow(0px 4px 6px rgba(0,0,0,0.4))' }} />
+          <h1 className="brand-title" style={{ fontSize: '1.4rem' }}>Basilico Blu</h1>
         </div>
         
         <div className="nav-links">
@@ -135,7 +136,7 @@ export default function App() {
               <MapPin size={14} style={{ marginRight: '8px', verticalAlign: 'middle' }} />777 Starlight Avenue, Culinary District<br/>
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Metroburg 10001<br/>
               <Phone size={14} style={{ marginRight: '8px', verticalAlign: 'middle' }} />+91 9318368267, +91 8287768083<br/>
-              <Mail size={14} style={{ marginRight: '8px', verticalAlign: 'middle' }} />ciao@basilicoblu.in
+              <Mail size={14} style={{ marginRight: '8px', verticalAlign: 'middle' }} />locuspath0904@gmail.com
             </p>
           </div>
           <div className="footer-col">
@@ -527,7 +528,7 @@ function Booking() {
           
           <div className="contact-box mt-4">
              <h4 className="detail-title" style={{ fontSize: '1rem', marginBottom: '0.5rem' }}>Need assistance?</h4>
-             <p style={{ color: 'var(--text-secondary)' }}>Call us at: +91 9318368267, +91 8287768083<br/>Email: ciao@basilicoblu.in</p>
+             <p style={{ color: 'var(--text-secondary)' }}>Call us at: +91 9318368267, +91 8287768083<br/>Email: locuspath0904@gmail.com</p>
           </div>
         </motion.div>
       </div>
